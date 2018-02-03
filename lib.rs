@@ -15,6 +15,7 @@
 #![feature(char_error_internals)]
 #![feature(toowned_clone_into)]
 #![feature(str_internals)]
+#![feature(rustc_attrs)]
 
 extern crate alloc;
 extern crate std_unicode;
@@ -63,6 +64,7 @@ pub mod os;
 pub mod traits;
 pub mod sys_common;
 pub mod ffi;
+pub mod path;
 // pub mod sync;
 pub mod memchr;
 

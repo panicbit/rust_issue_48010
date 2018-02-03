@@ -16,8 +16,10 @@ use fmt::{Debug, Display};
 use borrow::Cow;
 use rc::Rc;
 use alloc::arc::Arc;
+use path;
+use ffi;
 
-pub trait Std: Sized + Debug + Send + Sync {
+pub trait Std: Sized + Debug + Send + Sync + PartialEq + Eq + PartialOrd + Ord + Copy + Clone + Hash + 'static {
     type c_char: Copy + Hash + 'static;
     type c_double: Copy + 'static;
     type c_float: Copy + 'static;
@@ -33,7 +35,7 @@ pub trait Std: Sized + Debug + Send + Sync {
     type c_ushort: Copy + Hash + 'static;
 
     type Mutex: traits::Mutex;
-    type OsString: traits::OsString<Self>;
+    type OsString: traits::OsString<Self> + Clone;
     type OsStr: traits::OsStr<Self> + ?Sized;
 
     /// Usually defined as `&[0]`
@@ -47,6 +49,14 @@ pub trait Std: Sized + Debug + Send + Sync {
     unsafe fn strlen(cs: *const c_char<Self>) -> usize;
     fn decode_error_kind(errno: i32) -> io::ErrorKind;
     unsafe fn thread_guard_init() -> Option<usize>;
+
+    fn is_path_sep_byte(b: u8) -> bool;
+    fn is_verbatim_path_sep(b: u8) -> bool {
+        Self::is_path_sep_byte(b)
+    }
+    fn parse_path_prefix(path: &ffi::OsStr<Self>) -> Option<path::Prefix<Self>>;
+    const MAIN_PATH_SEP_STR: &'static str;
+    const MAIN_PATH_SEP: char;
 
     /// A safe interface to `memchr`.
     ///
@@ -165,4 +175,5 @@ pub trait OsStr<STD: Std>: Debug + Display {
     fn into_rc(&self) -> Rc<Self>;
     fn empty_box() -> Box<Self>;
     fn from_str(s: &str) -> &Self;
+    fn from_bytes(b: &[u8]) -> &Self;
 }

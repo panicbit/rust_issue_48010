@@ -572,8 +572,13 @@ impl<STD: Std> OsStr<STD> {
     ///
     /// Note: it is *crucial* that this API is private, to avoid
     /// revealing the internal, platform-specific encodings.
-    fn bytes(&self) -> &[u8] {
+    pub(crate) fn bytes(&self) -> &[u8] {
         self.inner.as_bytes()
+    }
+
+    /// Convert from underlying bytes.
+    pub(crate) fn from_bytes(b: &[u8]) -> &OsStr<STD> {
+        Self::from_inner(STD::OsStr::from_bytes(b))
     }
 }
 
