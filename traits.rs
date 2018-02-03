@@ -16,8 +16,8 @@ use fmt::Debug;
 
 pub trait Std: Sized + Debug + Send + Sync {
     type c_char: Copy + Hash + 'static;
-    type c_double: Copy + Hash + 'static;
-    type c_float: Copy + Hash + 'static;
+    type c_double: Copy + 'static;
+    type c_float: Copy + 'static;
     type c_int: Copy + Hash + 'static;
     type c_long: Copy + Hash + 'static;
     type c_longlong: Copy + Hash + 'static;

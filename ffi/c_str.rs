@@ -19,7 +19,6 @@ use error::Error;
 use fmt::{self, Write};
 use io;
 use mem;
-use memchr;
 use ops;
 use os::raw::c_char;
 use ptr;
