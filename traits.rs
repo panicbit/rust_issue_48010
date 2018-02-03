@@ -34,7 +34,7 @@ pub trait Std: Sized + Debug + Send + Sync {
 
     type Mutex: traits::Mutex;
     type OsString: traits::OsString<Self>;
-    type OsStr: traits::OsStr<Self>;
+    type OsStr: traits::OsStr<Self> + ?Sized;
 
     /// Usually defined as `&[0]`
     fn empty_cstr() -> &'static [c_char<Self>];
