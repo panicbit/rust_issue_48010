@@ -18,6 +18,7 @@ use rc::Rc;
 use alloc::arc::Arc;
 use path;
 use ffi;
+use time::Duration;
 
 pub trait Std: Sized + Debug + Send + Sync + PartialEq + Eq + PartialOrd + Ord + Copy + Clone + Hash + 'static {
     type c_char: Copy + Hash + 'static;
@@ -37,6 +38,10 @@ pub trait Std: Sized + Debug + Send + Sync + PartialEq + Eq + PartialOrd + Ord +
     type Mutex: traits::Mutex;
     type OsString: traits::OsString<Self> + Clone;
     type OsStr: traits::OsStr<Self> + ?Sized;
+    type SystemTime: SystemTime;
+    type Instant: Instant;
+
+    const UNIX_EPOCH: Self::SystemTime;
 
     /// Usually defined as `&[0]`
     fn empty_cstr() -> &'static [c_char<Self>];
@@ -176,4 +181,18 @@ pub trait OsStr<STD: Std>: Debug + Display {
     fn empty_box() -> Box<Self>;
     fn from_str(s: &str) -> &Self;
     fn from_bytes(b: &[u8]) -> &Self;
+}
+
+pub trait Instant: Copy + Clone + PartialEq + Eq + PartialOrd + Ord + Hash + Debug {
+    fn now() -> Self;
+    fn sub_instant(&self, earlier: &Self) -> Duration;
+    fn add_duration(&self, other: &Duration) -> Self;
+    fn sub_duration(&self, other: &Duration) -> Self;
+}
+
+pub trait SystemTime: Copy + Clone + PartialEq + Eq + PartialOrd + Ord + Hash + Debug {
+    fn now() -> Self;
+    fn sub_time(&self, earlier: &Self) -> Result<Duration, Duration>;
+    fn add_duration(&self, other: &Duration) -> Self;
+    fn sub_duration(&self, other: &Duration) -> Self;
 }
