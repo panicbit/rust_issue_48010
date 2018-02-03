@@ -12,7 +12,10 @@ use os::raw::c_char;
 use io;
 use traits;
 use core::hash::Hash;
-use fmt::Debug;
+use fmt::{Debug, Display};
+use borrow::Cow;
+use rc::Rc;
+use alloc::arc::Arc;
 
 pub trait Std: Sized + Debug + Send + Sync {
     type c_char: Copy + Hash + 'static;
@@ -30,6 +33,8 @@ pub trait Std: Sized + Debug + Send + Sync {
     type c_ushort: Copy + Hash + 'static;
 
     type Mutex: traits::Mutex;
+    type OsString: traits::OsString<Self>;
+    type OsStr: traits::OsStr<Self>;
 
     /// Usually defined as `&[0]`
     fn empty_cstr() -> &'static [c_char<Self>];
@@ -129,4 +134,35 @@ pub trait Mutex: Sync {
     /// this mutex.
     #[inline]
     unsafe fn destroy(&self);
+}
+
+pub trait OsString<STD: Std>: Sized {
+    fn from_string(s: String) -> Self;
+    fn into_string(self) -> Result<String, Self>;
+    fn push_slice(&mut self, s: &STD::OsStr);
+    fn with_capacity(capacity: usize) -> Self;
+    fn clear(&mut self);
+    fn capacity(&self) -> usize;
+    fn reserve(&mut self, additional: usize);
+    fn reserve_exact(&mut self, additional: usize);
+    fn shrink_to_fit(&mut self);
+    fn into_box(self) -> Box<STD::OsStr>;
+    fn as_slice(&self) -> &STD::OsStr;
+    fn from_box(boxed: Box<STD::OsStr>) -> Self;
+    fn into_arc(&self) -> Arc<STD::OsStr>;
+    fn into_rc(&self) -> Rc<STD::OsStr>;
+}
+
+pub trait OsStr<STD: Std>: Debug + Display {
+    fn to_str(&self) -> Option<&str>;
+    fn to_string_lossy(&self) -> Cow<str>;
+    fn to_owned(&self) -> STD::OsString;
+    fn is_empty(&self) -> bool;
+    fn len(&self) -> usize;
+    fn as_bytes(&self) -> &[u8];
+    fn into_box(&self) -> Box<Self>;
+    fn into_arc(&self) -> Arc<Self>;
+    fn into_rc(&self) -> Rc<Self>;
+    fn empty_box() -> Box<Self>;
+    fn from_str(s: &str) -> &Self;
 }
