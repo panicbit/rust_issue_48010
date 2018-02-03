@@ -84,7 +84,7 @@ use borrow::{Borrow, Cow};
 use cmp;
 use error::Error;
 use fmt;
-// use fs;
+use fs;
 use hash::{Hash, Hasher};
 use io;
 use iter::{self, FusedIterator};
@@ -2188,9 +2188,9 @@ impl<STD: Std> Path<STD> {
     /// println!("{:?}", metadata.file_type());
     /// ```
     // #[stable(feature = "path_ext", since = "1.5.0")]
-    // pub fn metadata(&self) -> io::Result<fs::Metadata, STD> {
-    //     fs::metadata(self)
-    // }
+    pub fn metadata(&self) -> io::Result<fs::Metadata<STD>, STD> {
+        fs::metadata(self)
+    }
 
     /// Queries the metadata about a file without following symlinks.
     ///
@@ -2208,9 +2208,9 @@ impl<STD: Std> Path<STD> {
     /// println!("{:?}", metadata.file_type());
     /// ```
     // #[stable(feature = "path_ext", since = "1.5.0")]
-    // pub fn symlink_metadata(&self) -> io::Result<fs::Metadata> {
-    //     fs::symlink_metadata(self)
-    // }
+    pub fn symlink_metadata(&self) -> io::Result<fs::Metadata<STD>, STD> {
+        fs::symlink_metadata(self)
+    }
 
     /// Returns the canonical form of the path with all intermediate components
     /// normalized and symbolic links resolved.
@@ -2228,9 +2228,9 @@ impl<STD: Std> Path<STD> {
     /// assert_eq!(path.canonicalize().unwrap(), PathBuf::from("/foo/test/bar.rs"));
     /// ```
     // #[stable(feature = "path_ext", since = "1.5.0")]
-    // pub fn canonicalize(&self) -> io::Result<PathBuf> {
-    //     fs::canonicalize(self)
-    // }
+    pub fn canonicalize(&self) -> io::Result<PathBuf<STD>, STD> {
+        fs::canonicalize(self)
+    }
 
     /// Reads a symbolic link, returning the file that the link points to.
     ///
@@ -2247,9 +2247,9 @@ impl<STD: Std> Path<STD> {
     /// let path_link = path.read_link().expect("read_link call failed");
     /// ```
     // #[stable(feature = "path_ext", since = "1.5.0")]
-    // pub fn read_link(&self) -> io::Result<PathBuf> {
-    //     fs::read_link(self)
-    // }
+    pub fn read_link(&self) -> io::Result<PathBuf<STD>, STD> {
+        fs::read_link(self)
+    }
 
     /// Returns an iterator over the entries within a directory.
     ///
@@ -2275,9 +2275,9 @@ impl<STD: Std> Path<STD> {
     /// }
     /// ```
     // #[stable(feature = "path_ext", since = "1.5.0")]
-    // pub fn read_dir(&self) -> io::Result<fs::ReadDir> {
-    //     fs::read_dir(self)
-    // }
+    pub fn read_dir(&self) -> io::Result<fs::ReadDir<STD>, STD> {
+        fs::read_dir(self)
+    }
 
     /// Returns whether the path points at an existing entity.
     ///
@@ -2301,9 +2301,9 @@ impl<STD: Std> Path<STD> {
     ///
     /// [fs::metadata]: ../../std/fs/fn.metadata.html
     // #[stable(feature = "path_ext", since = "1.5.0")]
-    // pub fn exists(&self) -> bool {
-    //     fs::metadata(self).is_ok()
-    // }
+    pub fn exists(&self) -> bool {
+        fs::metadata(self).is_ok()
+    }
 
     /// Returns whether the path exists on disk and is pointing at a regular file.
     ///
@@ -2330,9 +2330,9 @@ impl<STD: Std> Path<STD> {
     /// [fs::metadata]: ../../std/fs/fn.metadata.html
     /// [fs::Metadata::is_file]: ../../std/fs/struct.Metadata.html#method.is_file
     // #[stable(feature = "path_ext", since = "1.5.0")]
-    // pub fn is_file(&self) -> bool {
-    //     fs::metadata(self).map(|m| m.is_file()).unwrap_or(false)
-    // }
+    pub fn is_file(&self) -> bool {
+        fs::metadata(self).map(|m| m.is_file()).unwrap_or(false)
+    }
 
     /// Returns whether the path exists on disk and is pointing at a directory.
     ///
@@ -2359,9 +2359,9 @@ impl<STD: Std> Path<STD> {
     /// [fs::metadata]: ../../std/fs/fn.metadata.html
     /// [fs::Metadata::is_dir]: ../../std/fs/struct.Metadata.html#method.is_dir
     // #[stable(feature = "path_ext", since = "1.5.0")]
-    // pub fn is_dir(&self) -> bool {
-    //     fs::metadata(self).map(|m| m.is_dir()).unwrap_or(false)
-    // }
+    pub fn is_dir(&self) -> bool {
+        fs::metadata(self).map(|m| m.is_dir()).unwrap_or(false)
+    }
 
     /// Converts a [`Box<Path>`][`Box`] into a [`PathBuf`] without copying or
     /// allocating.
