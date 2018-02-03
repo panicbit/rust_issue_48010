@@ -292,7 +292,7 @@ use ptr;
 // #[stable(feature = "rust1", since = "1.0.0")]
 pub use self::error::{Result, Error, ErrorKind};
 // #[stable(feature = "rust1", since = "1.0.0")]
-// pub use self::util::{copy, sink, Sink, empty, Empty, repeat, Repeat};
+pub use self::util::{copy, sink, Sink, empty, Empty, repeat, Repeat};
 // #[stable(feature = "rust1", since = "1.0.0")]
 // pub use self::stdio::{stdin, stdout, stderr, Stdin, Stdout, Stderr};
 // #[stable(feature = "rust1", since = "1.0.0")]
@@ -309,7 +309,7 @@ pub mod prelude;
 mod error;
 // mod impls;
 // mod lazy;
-// mod util;
+mod util;
 // mod stdio;
 
 const DEFAULT_BUF_SIZE: usize = ::sys_common::io::DEFAULT_BUF_SIZE;
