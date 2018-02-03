@@ -14,6 +14,7 @@
 #![feature(array_error_internals)]
 #![feature(char_error_internals)]
 #![feature(toowned_clone_into)]
+#![feature(str_internals)]
 
 extern crate alloc;
 extern crate std_unicode;

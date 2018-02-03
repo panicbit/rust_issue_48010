@@ -22,6 +22,8 @@
 //! between them all would form a dag, facilitating the extraction of
 //! `std::sys` from the standard library.
 
+pub mod bytestring;
+
 pub mod mutex {
     use traits::Std;
     pub type Mutex<STD: Std> = <STD as Std>::Mutex;
