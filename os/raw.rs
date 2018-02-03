@@ -34,16 +34,16 @@ pub enum c_void {
     #[doc(hidden)] __variant2,
 }
 
-pub type c_char<STD: Std> = <STD as Std>::c_char;
-pub type c_double<STD: Std> = <STD as Std>::c_double;
-pub type c_float<STD: Std> = <STD as Std>::c_float;
-pub type c_int<STD: Std> = <STD as Std>::c_int;
-pub type c_long<STD: Std> = <STD as Std>::c_long;
-pub type c_longlong<STD: Std> = <STD as Std>::c_longlong;
-pub type c_schar<STD: Std> = <STD as Std>::c_schar;
-pub type c_short<STD: Std> = <STD as Std>::c_short;
-pub type c_uchar<STD: Std> = <STD as Std>::c_uchar;
-pub type c_uint<STD: Std> = <STD as Std>::c_uint;
-pub type c_ulong<STD: Std> = <STD as Std>::c_ulong;
-pub type c_ulonglong<STD: Std> = <STD as Std>::c_ulonglong;
-pub type c_ushort<STD: Std> = <STD as Std>::c_ushort;
+pub type c_char<STD> = <STD as Std>::c_char;
+pub type c_double<STD> = <STD as Std>::c_double;
+pub type c_float<STD> = <STD as Std>::c_float;
+pub type c_int<STD> = <STD as Std>::c_int;
+pub type c_long<STD> = <STD as Std>::c_long;
+pub type c_longlong<STD> = <STD as Std>::c_longlong;
+pub type c_schar<STD> = <STD as Std>::c_schar;
+pub type c_short<STD> = <STD as Std>::c_short;
+pub type c_uchar<STD> = <STD as Std>::c_uchar;
+pub type c_uint<STD> = <STD as Std>::c_uint;
+pub type c_ulong<STD> = <STD as Std>::c_ulong;
+pub type c_ulonglong<STD> = <STD as Std>::c_ulonglong;
+pub type c_ushort<STD> = <STD as Std>::c_ushort;

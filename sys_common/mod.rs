@@ -27,7 +27,7 @@ pub mod io;
 
 pub mod mutex {
     use traits::Std;
-    pub type Mutex<STD: Std> = <STD as Std>::Mutex;
+    pub type Mutex<STD> = <STD as Std>::Mutex;
 }
 
 /// A trait for viewing representations from std types
