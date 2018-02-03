@@ -1,0 +1,8 @@
+[package]
+name = "abstract_platform"
+version = "0.1.0"
+authors = ["panicbit <panicbit.dev@gmail.com>"]
+
+[lib]
+path = "lib.rs"
+
