@@ -68,4 +68,4 @@ pub mod memchr;
 // Copied 1:1 from std (except for use prelude::*)
 pub mod ascii;
 
-mod prelude;
+pub mod prelude;

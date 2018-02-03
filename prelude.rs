@@ -13,22 +13,22 @@
 //! See the [module-level documentation](../index.html) for more.
 
 // Re-exported core operators
-pub(crate) use core::marker::{Copy, Send, Sized, Sync};
-pub(crate) use core::ops::{Drop, Fn, FnMut, FnOnce};
+pub use core::marker::{Copy, Send, Sized, Sync};
+pub use core::ops::{Drop, Fn, FnMut, FnOnce};
 
 // Re-exported functions
-pub(crate) use core::mem::drop;
+pub use core::mem::drop;
 
 // Re-exported types and traits
-pub(crate) use alloc::boxed::Box;
-pub(crate) use alloc::borrow::ToOwned;
-pub(crate) use core::clone::Clone;
-pub(crate) use core::cmp::{PartialEq, PartialOrd, Eq, Ord};
-pub(crate) use core::convert::{AsRef, AsMut, Into, From};
-pub(crate) use core::default::Default;
-pub(crate) use core::iter::{Iterator, Extend, IntoIterator};
-pub(crate) use core::iter::{DoubleEndedIterator, ExactSizeIterator};
-pub(crate) use core::option::Option::{self, Some, None};
-pub(crate) use core::result::Result::{self, Ok, Err};
-pub(crate) use alloc::string::{String, ToString};
-pub(crate) use alloc::vec::Vec;
+pub use alloc::boxed::Box;
+pub use alloc::borrow::ToOwned;
+pub use core::clone::Clone;
+pub use core::cmp::{PartialEq, PartialOrd, Eq, Ord};
+pub use core::convert::{AsRef, AsMut, Into, From};
+pub use core::default::Default;
+pub use core::iter::{Iterator, Extend, IntoIterator};
+pub use core::iter::{DoubleEndedIterator, ExactSizeIterator};
+pub use core::option::Option::{self, Some, None};
+pub use core::result::Result::{self, Ok, Err};
+pub use alloc::string::{String, ToString};
+pub use alloc::vec::Vec;
