@@ -23,6 +23,7 @@
 //! `std::sys` from the standard library.
 
 pub mod bytestring;
+pub mod io;
 
 pub mod mutex {
     use traits::Std;
