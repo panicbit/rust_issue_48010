@@ -322,7 +322,7 @@ fn iter_after<A, I, J>(mut iter: I, mut prefix: J) -> Option<I>
 
 // See note at the top of this module to understand why these are used:
 fn os_str_as_u8_slice<STD: Std>(s: &OsStr<STD>) -> &[u8] {
-    s.bytes()
+    s.as_bytes()
 }
 unsafe fn u8_slice_as_os_str<STD: Std>(s: &[u8]) -> &OsStr<STD> {
     OsStr::from_bytes(s)

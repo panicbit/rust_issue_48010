@@ -572,12 +572,17 @@ impl<STD: Std> OsStr<STD> {
     ///
     /// Note: it is *crucial* that this API is private, to avoid
     /// revealing the internal, platform-specific encodings.
-    pub(crate) fn bytes(&self) -> &[u8] {
+    #[unstable(feature = "platform_internals", issue = "0")]
+    pub fn as_bytes(&self) -> &[u8] {
         self.inner.as_bytes()
     }
 
     /// Convert from underlying bytes.
-    pub(crate) fn from_bytes(b: &[u8]) -> &OsStr<STD> {
+    ///
+    /// Note: it is *crucial* that this API is private, to avoid
+    /// revealing the internal, platform-specific encodings.
+    #[unstable(feature = "platform_internals", issue = "0")]
+    pub fn from_bytes(b: &[u8]) -> &OsStr<STD> {
         Self::from_inner(STD::OsStr::from_bytes(b))
     }
 }
@@ -660,7 +665,7 @@ impl<'a, STD: Std> Default for &'a OsStr<STD> {
 // #[stable(feature = "rust1", since = "1.0.0")]
 impl<STD: Std> PartialEq for OsStr<STD> {
     fn eq(&self, other: &OsStr<STD>) -> bool {
-        self.bytes().eq(other.bytes())
+        self.as_bytes().eq(other.as_bytes())
     }
 }
 
@@ -685,16 +690,16 @@ impl<STD: Std> Eq for OsStr<STD> {}
 impl<STD: Std> PartialOrd for OsStr<STD> {
     #[inline]
     fn partial_cmp(&self, other: &OsStr<STD>) -> Option<cmp::Ordering> {
-        self.bytes().partial_cmp(other.bytes())
+        self.as_bytes().partial_cmp(other.as_bytes())
     }
     #[inline]
-    fn lt(&self, other: &OsStr<STD>) -> bool { self.bytes().lt(other.bytes()) }
+    fn lt(&self, other: &OsStr<STD>) -> bool { self.as_bytes().lt(other.as_bytes()) }
     #[inline]
-    fn le(&self, other: &OsStr<STD>) -> bool { self.bytes().le(other.bytes()) }
+    fn le(&self, other: &OsStr<STD>) -> bool { self.as_bytes().le(other.as_bytes()) }
     #[inline]
-    fn gt(&self, other: &OsStr<STD>) -> bool { self.bytes().gt(other.bytes()) }
+    fn gt(&self, other: &OsStr<STD>) -> bool { self.as_bytes().gt(other.as_bytes()) }
     #[inline]
-    fn ge(&self, other: &OsStr<STD>) -> bool { self.bytes().ge(other.bytes()) }
+    fn ge(&self, other: &OsStr<STD>) -> bool { self.as_bytes().ge(other.as_bytes()) }
 }
 
 // #[stable(feature = "rust1", since = "1.0.0")]
@@ -711,7 +716,7 @@ impl<STD: Std> PartialOrd<str> for OsStr<STD> {
 // #[stable(feature = "rust1", since = "1.0.0")]
 impl<STD: Std> Ord for OsStr<STD> {
     #[inline]
-    fn cmp(&self, other: &OsStr<STD>) -> cmp::Ordering { self.bytes().cmp(other.bytes()) }
+    fn cmp(&self, other: &OsStr<STD>) -> cmp::Ordering { self.as_bytes().cmp(other.as_bytes()) }
 }
 
 macro_rules! impl_cmp {
@@ -756,7 +761,7 @@ impl_cmp!(OsString<STD>, &'a OsStr<STD>);
 impl<STD: Std> Hash for OsStr<STD> {
     #[inline]
     fn hash<H: Hasher>(&self, state: &mut H) {
-        self.bytes().hash(state)
+        self.as_bytes().hash(state)
     }
 }
 
