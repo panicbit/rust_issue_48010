@@ -22,7 +22,6 @@ use traits::{
     Std,
     File as FileT,
     FileAttr as FileAttrT,
-    ReadDir as ReadDirT,
     OpenOptions as OpenOptionsT,
     Permissions as PermissionsT,
     FileType as FileTypeT,

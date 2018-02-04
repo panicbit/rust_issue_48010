@@ -46,10 +46,10 @@ pub trait Std: Sized + Debug + Send + Sync + PartialEq + Eq + PartialOrd + Ord +
 
     type File: File<Self>;
     type FileAttr: FileAttr<Self>;
-    type ReadDir: ReadDir<Self>;
-    type OpenOptions: OpenOptions<Self>;
-    type Permissions: Permissions<Self>;
-    type FileType: FileType<Self>;
+    type ReadDir: Iterator<Item = io::Result<Self::DirEntry, Self>>;
+    type OpenOptions: OpenOptions;
+    type Permissions: Permissions;
+    type FileType: FileType;
     type DirBuilder: DirBuilder<Self>;
     type DirEntry: DirEntry<Self>;
 
@@ -211,11 +211,7 @@ pub trait FileAttr<STD: Std>: Sized {
     fn created(&self) -> io::Result<STD::SystemTime, STD>;
 }
 
-pub trait ReadDir<STD: Std>: Sized + Iterator<Item = io::Result<STD::DirEntry, STD>> {
-
-}
-
-pub trait OpenOptions<STD: Std>: Sized {
+pub trait OpenOptions: Sized {
     fn new() -> Self;
     fn read(&mut self, read: bool);
     fn write(&mut self, write: bool);
@@ -225,12 +221,12 @@ pub trait OpenOptions<STD: Std>: Sized {
     fn create_new(&mut self, create_new: bool);
 }
 
-pub trait Permissions<STD: Std>: Sized + Debug {
+pub trait Permissions: Sized + Debug {
     fn readonly(&self) -> bool;
     fn set_readonly(&mut self, readonly: bool);
 }
 
-pub trait FileType<STD: Std>: Sized + Debug {
+pub trait FileType: Sized + Debug {
     fn is_dir(&self) -> bool;
     fn is_file(&self) -> bool;
     fn is_symlink(&self) -> bool;
