@@ -10,7 +10,7 @@
 use prelude::*;
 use os::raw::c_char;
 use io;
-use io::prelude::*;
+use io::Write;
 use traits;
 use core::hash::Hash;
 use fmt::{Debug, Display};
@@ -52,6 +52,8 @@ pub trait Std: Sized + Debug + Send + Sync + PartialEq + Eq + PartialOrd + Ord +
     type FileType: FileType;
     type DirBuilder: DirBuilder<Self>;
     type DirEntry: DirEntry<Self>;
+
+    type Stderr: Stdio<Self> + Write<Self>;
 
     const UNIX_EPOCH: Self::SystemTime;
 
@@ -242,4 +244,8 @@ pub trait DirEntry<STD: Std>: Sized {
     fn file_type(&self) -> io::Result<STD::FileType, STD>;
     fn file_name(&self) -> ffi::OsString<STD>;
     fn metadata(&self) -> io::Result<STD::FileAttr, STD>;
+}
+
+pub trait Stdio<STD: Std>: Sized {
+    fn new() -> io::Result<Self, STD>;
 }

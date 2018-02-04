@@ -69,6 +69,7 @@ pub mod path;
 pub mod memchr;
 pub mod fs;
 pub mod time;
+pub mod util;
 
 // Copied 1:1 from std (except for use prelude::*)
 pub mod ascii;
