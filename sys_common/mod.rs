@@ -24,11 +24,7 @@
 
 pub mod bytestring;
 pub mod io;
-
-pub mod mutex {
-    use traits::Std;
-    pub type Mutex<STD> = <STD as Std>::Mutex;
-}
+pub mod mutex;
 
 /// A trait for viewing representations from std types
 #[doc(hidden)]
